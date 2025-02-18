@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strconv"
 )
 
@@ -73,7 +74,8 @@ func handler(w http.ResponseWriter, r *http.Request, client *http.Client) {
 		return
 	}
 
-	req2, err := client.Get(fmt.Sprintf("https://api.weatherapi.com/v1/current.json?q=%s&key=906fd34420aa45c2a20174551251802", cepResponse.Localidade))
+	param := url.QueryEscape(cepResponse.Localidade)
+	req2, err := client.Get(fmt.Sprintf("https://api.weatherapi.com/v1/current.json?q=%s&key=906fd34420aa45c2a20174551251802", param))
 
 	if err != nil {
 		panic(err)
